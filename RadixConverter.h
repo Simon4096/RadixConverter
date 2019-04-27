@@ -6,10 +6,11 @@
 
 namespace cxpl::RadixConverter
 {
-    std::vector<int> Convert(std::vector<int> in, int from, int to)
+    template <typename DigitType = int>
+    std::vector<DigitType> Convert(std::vector<DigitType> in, int from, int to)
     {
-        std::vector<int> out;
-        auto BigIntegerMod = [](std::vector<int> &num, int radix, int divisor, int &remainder)
+        std::vector<DigitType> out;
+        auto BigIntegerMod = [](std::vector<DigitType> &num, int radix, int divisor, DigitType &remainder)
         {
             int divident = 0;
             bool isQuotientNonzero = false;
@@ -26,7 +27,7 @@ namespace cxpl::RadixConverter
             return isQuotientNonzero;
         };
 
-        int remainder = 0;
+        DigitType remainder = 0;
         while (BigIntegerMod(in, from, to, remainder))
         {
             out.push_back(remainder);
